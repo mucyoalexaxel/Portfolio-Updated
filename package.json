@@ -1,0 +1,31 @@
+{
+  "name": "portfolio-updated",
+  "version": "1.0.0",
+  "description": "Responsive Portfolio Website Using Html, Css and JavaScript, With a beautiful user interface. It contains a Header, Home, About, Skills, Qualification, Services, Portfolio, Project in mind, Testimonial, Contact and Footer. Don't forget to join the channel for more videos like this. [Bedimcode](https://www.youtube.com/c/Bedimcode)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mucyoalexaxel/Portfolio-Updated.git"
+  },
+  "keywords": [],
+  "author": "Alex Axel Mucyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mucyoalexaxel/Portfolio-Updated/issues"
+  },
+  "homepage": "https://github.com/mucyoalexaxel/Portfolio-Updated#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^6.1.8"
+  },
+  "devDependencies": {
+    "dotenv": "^14.3.2",
+    "nodemon": "^2.0.15"
+  }
+}
