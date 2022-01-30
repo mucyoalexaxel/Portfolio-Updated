@@ -285,7 +285,9 @@ img{
 .home__title{
     font-size: var(--big-font-size);
 }
-
+.home__title-special{
+    color: var(--first-color);
+}
 .home__subtitle{
     font-size: var(--h3-font-size);
     color: var(--text-color);
