@@ -27,7 +27,7 @@ app.set('views', __dirname + '/views')
 
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
-app.use(express.static("public")) // Why Does The CSS Not Work?
+app.use(express.static('public')) // Why Does The JS Not Work?
 
 
 // Using Routes
