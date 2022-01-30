@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== 'production'){
 
 const mongoose = require('mongoose')
 const express = require('express')
+const ejs = require('ejs')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 
@@ -26,12 +27,13 @@ app.set('views', __dirname + '/views')
 
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
-app.use(express.static('public'))
+app.use(express.static("public")) // Why Does The CSS Not Work?
 
 
 // Using Routes
 
 app.use('/', indexRouter)
+
 
 // Mongoose DataBase Connection
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
