@@ -114,7 +114,7 @@ img{
 
 /* REUSABLE CSS CLASSES */
 .section{
-    padding: 2rem 0 4rem;
+    padding: 2rem 1.5rem;
 }
 
 .section__title{
@@ -384,6 +384,73 @@ img{
 }
 
 /* SKILLS */
+
+.skills__container{
+    row-gap: 0;
+}
+
+.skills__header{
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--mb-2-5);
+    cursor: pointer;
+}
+
+.skills__icon, .skills__arrow{
+    font-size: 2rem;
+    color: var(--first-color);
+}
+
+.skills__icon{
+    margin-right: var(--mb-0-75);
+}
+
+.skills__title{
+    font-size: var(--h4-font-size);
+}
+
+.skills__subtitle{
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+}
+
+.skills__arrow{
+    margin-left: auto;
+    transition: .4s;
+}
+
+.skills__list{
+    row-gap: 1.5rem;
+    padding-left: 2.7rem;
+}
+
+.skills__titles{
+    display: flex;
+    justify-content: space-between;
+}
+
+.skills__name{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+}
+
+.skills__open{
+    margin-bottom: var(--mb-2-5);
+}
+
+.skills__close .skills__list{
+    height: 0;
+    overflow: hidden;
+}
+
+.skills__open .skills__list{
+    height: max-content;
+    margin-bottom: var(--mb-0-25);
+}
+
+.skills__open .skills__arrow{
+    transform: rotate(-180deg);
+}
 
 
 /* QUALIFICATION */
