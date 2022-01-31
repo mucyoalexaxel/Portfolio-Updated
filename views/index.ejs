@@ -1,7 +1,7 @@
 <!-- MAIN -->
 <main class="main">
     <!-- HOME -->
-    <section class="home section" id="home">
+    <section class="home section active-link" id="home">
         <div class="home__container container grid">
             <div class="home__content grid">
                 <div class="home__social">
@@ -741,7 +741,7 @@
 
     <!-- PROJECT IN MIND -->
     <section class="project section">
-        
+
 
     </section>
 
@@ -753,8 +753,65 @@
 
     <!-- CONTACT ME -->
     <section class="contact section" id="contact">
+        <h2 class="section__title">Contact Me</h2>
+        <span class="section__subtitle">Get In Touch</span>
 
+        <div class="contact__container container grid">
+            <div>
+                <!-- Telephone -->
+                <div class="contact__information">
+                    <i class="uil uil-phone-alt contact__icon"></i>
 
+                    <div>
+                        <h3 class="contact__title">Call Me</h3>
+                        <span class="contact__subtitle"><a href="tel:+250785265860">(250) 785 265 860</a></span>
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="contact__information">
+                    <i class="uil uil-envelope contact__icon"></i>
+
+                    <div>
+                        <h3 class="contact__title">Email</h3>
+                        <span class="contact__subtitle"><a href="mailto:mucyoalexaxel@gmail.com">mucyoalexaxel@gmail.com</a></span>
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="contact__information">
+                    <i class="uil uil-map-marker contact__icon"></i>
+
+                    <div>
+                        <h3 class="contact__title">Location</h3>
+                        <span class="contact__subtitle">KK 774 St | Kigali - Rwanda</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact Me Forms -->
+            <form action="" method="POST" class="contact__form grid" id="contactForm">
+                <div class="contact__inputs grid">
+                    <div class="contact__content">
+                        <label for="" class="contact__label">Full Names</label>
+                        <input type="text" name="name" id="nameId" class="contact__input" placeholder="Alex Axel Mucyo" onfocus="focusEvent()">
+                    </div>
+                    <div class="contact__content">
+                        <label for="" class="contact__label">Email</label>
+                        <input type="email" name="email" id="emailId" class="contact__input" placeholder="example@example.com" onfocus="focusEvent()">
+                    </div>
+                </div>
+                <div class="contact__content">
+                    <label for="" class="contact__label">Project</label>
+                    <input type="text" name="project" id="projectId" class="contact__input" placeholder="Web Application Development" onfocus="focusEvent()">
+                </div>
+                <div class="contact__content">
+                    <label for="" class="contact__label">Message</label>
+                    <textarea name="message" id="messageId" cols="0" rows="7" class="contact__input" placeholder="Hi Alex, ......"></textarea>
+                </div>
+
+                <div>
+                    <a href="javascript:{}" class="button button--flex contact--btn" onclick="formSubmit()">Send<i class="uil uil-message button__icon"></i></a>
+                </div>
+            </form>
+        </div>
     </section>
     
     <!-- BLOG -->
