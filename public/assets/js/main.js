@@ -1,11 +1,11 @@
-/*==================== MENU SHOW Y HIDDEN ====================*/
+/* MENU SHOW Y HIDDEN */
 
 const navMenu = document.getElementById('nav-menu'), 
     navToggle = document.getElementById('nav-toggle'),
     navClose = document.getElementById('nav-close');
 
 
-/*===== SHOW MENU =====*/
+/* SHOW MENU */
 /* Validate if constant exists */
 if(navToggle) {
     navToggle.addEventListener('click', () =>{
@@ -13,7 +13,7 @@ if(navToggle) {
     })
 }
 
-/*===== HIDE MENU =====*/
+/* HIDE MENU */
 /* Validate if constant exists */
 if (navClose) {
     navClose.addEventListener('click', () => {
@@ -21,7 +21,7 @@ if (navClose) {
     })
 }
 
-/*==================== REMOVE MENU MOBILE ON CLICK OF ICON====================*/
+/* REMOVE MENU MOBILE ON CLICK OF ICON*/
 const navLink = document.querySelectorAll('.nav__link')
 
 const linkAction = () => {
@@ -31,7 +31,7 @@ const linkAction = () => {
 }
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
-/*==================== ACCORDION SKILLS ====================*/
+/* ACCORDION SKILLS */
 
 const skillsContent = document.getElementsByClassName('skills__content'),
     skillsHeader = document.querySelectorAll('.skills__header')
@@ -47,7 +47,7 @@ skillsHeader.forEach((el) => {
     el.addEventListener('click', toggleSkills)
 })
 
-/*==================== QUALIFICATION TABS ====================*/
+/* QUALIFICATION TABS */
 const tabs = document.querySelectorAll('[data-target]'),
     tabContents = document.querySelectorAll('[data-content]')
 
@@ -67,22 +67,60 @@ tabs.forEach(tab => {
     })
 })
 
-/*==================== SERVICES MODAL ====================*/
+/* SERVICES MODAL */
+
+const modalViews = document.querySelectorAll('.services__modal'),
+      modalBtns = document.querySelectorAll('.services__button'), 
+      modalCloses = document.querySelectorAll('.services__modal-close'), 
+      servicesModals = document.querySelectorAll('.services__modal'),
+      servicesModalContent = document.querySelectorAll('.services__modal-content')
+
+const modal = modalClick => {
+    modalViews[modalClick].classList.add('active-modal') 
+}
+
+modalBtns.forEach((modalBtn, i) => {
+    modalBtn.addEventListener('click', () => {
+        modal(i)
+    })
+})
+
+modalCloses.forEach((modalClose) => {
+    modalClose.addEventListener('click', () => {
+        modalViews.forEach((modalView) => {
+            modalView.classList.remove('active-modal')
+        })
+    })
+})
+
+// To be Reviewed
+// servicesModals.forEach((servicesModal) => {
+//     servicesModal.addEventListener('click', () => {
+//         if (servicesModalContent.clicked === true) {
+//             alert('You are Clicking Me')
+//         }        
+//         else {
+//             modalViews.forEach((modalView) => {
+//                 modalView.classList.remove('active-modal')
+//             })
+//         }
+//     })
+// })
 
 
-/*==================== PORTFOLIO SWIPER  ====================*/
+/* PORTFOLIO SWIPER  */
 
 
-/*==================== TESTIMONIAL ====================*/
+/* TESTIMONIAL */
 
 
-/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
+/* SCROLL SECTIONS ACTIVE LINK */
 
 
-/*==================== CHANGE BACKGROUND HEADER ====================*/ 
+/* CHANGE BACKGROUND HEADER */ 
 
 
-/*==================== SHOW SCROLL UP ====================*/ 
+/* SHOW SCROLL UP */ 
 
 
-/*==================== DARK LIGHT THEME ====================*/ 
+/* DARK LIGHT THEME */ 
