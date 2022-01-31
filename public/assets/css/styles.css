@@ -193,7 +193,7 @@ img{
         box-shadow: 0 -1px 4px rgba(0, 0, 0, .15);
         border-radius: 1.5rem  1.5rem 0 0;
         transition: .4s ease;
-        border-top: .5px solid var(--first-color-second);
+        border-top: 1px solid var(--first-color-second);
     }
 }
 
