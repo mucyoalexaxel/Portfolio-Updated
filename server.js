@@ -35,7 +35,8 @@ app.use('/', indexRouter)
 
 // MongoDB Atlas Connection
 
-const URI = process.env.DATABASE_URL;
+// const URI = process.env.DATABASE_URL;
+const URI = 'mongodb+srv://Admin:mucad2101@resume1.vdlq5.mongodb.net/resume1?retryWrites=true&w=majority';
 
 const connectDB = async () => {
     await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
