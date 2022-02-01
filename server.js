@@ -1,3 +1,9 @@
+// Loading MongoDb Database In The Server from our .env file
+
+if (process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 // Importing Libaries 
 
 const mongoose = require('mongoose')
@@ -6,7 +12,7 @@ const ejs = require('ejs')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 
-// importing Routes In The Server 
+// Importing Routes In The Server 
 
 const indexRouter = require('./routes/index') // Index Route 
 
@@ -20,7 +26,7 @@ app.set('views', __dirname + '/views')
 
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
-app.use(express.static('public'))
+app.use(express.static('public')) // Why Does The JS Not Work?
 
 
 // Using Routes
@@ -29,7 +35,7 @@ app.use('/', indexRouter)
 
 // MongoDB Atlas Connection
 
-const URI = 'mongodb+srv://Admin:mucad2101@resume1.vdlq5.mongodb.net/resume1?retryWrites=true&w=majority';
+const URI = process.env.DATABASE_URL;
 
 const connectDB = async () => {
     await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
