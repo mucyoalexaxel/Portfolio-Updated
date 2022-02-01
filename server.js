@@ -37,7 +37,7 @@ app.use(express.static('public'))
 
 app.use('/', indexRouter) // Index Route
 app.use('/login_page_layout', loginRouter) // Login Route
-app.use('/blog_page_layout', blogRouter) // Login Route
+app.use('/blog_page_layout', blogRouter) // Blog Route
 
 // MongoDB Atlas Connection
 
@@ -52,5 +52,3 @@ connectDB()
 // Connecting & Listening to The Database
 
 app.listen(process.env.PORT || 7000)
-
-
