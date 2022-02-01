@@ -43,12 +43,13 @@ app.use('/', indexRouter)
 
 // MongoDB Atlas Connection
 
-const uri = "mongodb+srv://Admin:CaineMvhzc@12@resume1.vdlq5.mongodb.net/Resume1?retryWrites=true&w=majority";
+const URI = 'mongodb+srv://Admin:mucad2101@resume1.vdlq5.mongodb.net/resume1?retryWrites=true&w=majority';
 
 const connectDB = async () => {
-    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    console.log('Connected To MongoDb Atlas Succefully')
+    await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
+    console.log('Connected To MongoDb Atlas')
 }
+connectDB()
 
 // Connecting & Listening to The Database
 
