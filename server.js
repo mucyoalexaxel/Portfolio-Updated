@@ -15,23 +15,29 @@ const expressLayouts = require('express-ejs-layouts')
 // Importing Routes In The Server 
 
 const indexRouter = require('./routes/index') // Index Route 
-
+const loginRouter = require('./routes/login') // Login Route
+const blogRouter = require('./routes/blog') // Login Route
 // Setting Up Engines 
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 
 
+
 // Setting Up Layouts
 
-app.set('layout', 'layouts/layout')
+app.set('layout', 'layouts/layout' , 'layouts/login_page_layout', 'layouts/blog_page_layout') 
+
+// Using Layouts
 app.use(expressLayouts)
-app.use(express.static('public')) // Why Does The JS Not Work?
+app.use(express.static('public'))
 
 
 // Using Routes
 
-app.use('/', indexRouter)
+app.use('/', indexRouter) // Index Route
+app.use('/login_page_layout', loginRouter) // Login Route
+app.use('/blog_page_layout', blogRouter) // Login Route
 
 // MongoDB Atlas Connection
 
