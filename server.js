@@ -45,10 +45,14 @@ const URI = process.env.DATABASE_URL;
 
 const connectDB = async () => {
     await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
+    app.listen(process.env.PORT)
+    const dbPort = JSON.stringify(app.listen(process.env.PORT))
+    console.log('App Is Listening On Port: ' + dbPort)
     console.log('Connected To MongoDb Atlas')
 }
 connectDB()
 
 // Connecting & Listening to The Database
-
 app.listen(process.env.PORT || 7000)
+
+
