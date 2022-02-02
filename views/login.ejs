@@ -1,5 +1,76 @@
 <!-- LOGIN -->
 <section class="contact section" id="login">
+    <div class="qualification section">
+        <h2 class="section__title">Welcome Back !</h2>
 
+        <div class="qualification__container container">
+            <div class="qualification__tabs">
+                <!-- Login -->
+                <div class="qualification__button button--flex qualification__active" data-target='#education'>
+                    <i class="uil uil-graduation-cap qualification__icon"></i>Login
+                </div>
+                <!-- Register -->
+                <div class="qualification__button button--flex" data-target="#experience">
+                    <i class="uil uil-briefcase-alt qualification__icon"></i>Register
+                </div>
+            </div>
+
+            <!-- Login & Register Cards -->
+            <div class="qualification__sections">
+                <!-- Login -->
+                <div class="qualification__content qualification__active" data-content id="education">
+                    <!-- login Form -->
+                    <form action="" method="POST" class="contact__form grid" id="contactForm">
+                        <div class="contact__inputs grid">
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Email</label>
+                                <input type="email" name="email" id="emailId" class="contact__input" placeholder="example@example.com" >
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Password</label>
+                                <input type="password" name="password" id="passwordId" class="contact__input" placeholder="Password" >
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="javascript:{}" class="button button--flex contact--btn" onclick="formSubmit()">Send<i class="uil uil-message button__icon"></i></a>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Register -->
+                <div class="qualification__content" data-content id="experience">
+                    <!-- Register Form -->
+                    <form action="" method="POST" class="contact__form grid" id="contactForm">
+                        <div class="contact__inputs grid">
+                            <div class="contact__content">
+                                <label for="" class="contact__label">First Name</label>
+                                <input type="text" name="name" id="nameId" class="contact__input" placeholder="Alex Axel" >
+                            </div>
+                            
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Last Name</label>
+                                <input type="text" name="name" id="nameId" class="contact__input" placeholder="Mucyo" >
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Email</label>
+                                <input type="email" name="email" id="emailId" class="contact__input" placeholder="example@example.com" >
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Password</label>
+                                <input type="password" name="password" id="passwordId" class="contact__input" placeholder="Password" >
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="javascript:{}" class="button button--flex contact--btn" onclick="formSubmit()">Send<i class="uil uil-message button__icon"></i></a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
 
 </section>
