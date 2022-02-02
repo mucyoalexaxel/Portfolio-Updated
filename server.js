@@ -1,8 +1,8 @@
 // Loading MongoDb Database In The Server from our .env file
 
-if (process.env.NODE_ENV !== 'production'){
-    require('dotenv').config()
-}
+// if (process.env.NODE_ENV !== 'production'){
+//     require('dotenv').config()
+// }
 
 // Importing Libaries 
 
@@ -11,7 +11,7 @@ const express = require('express')
 const ejs = require('ejs')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
-
+const dotEnv = require('dotenv').config()
 // Importing Routes In The Server 
 
 const indexRouter = require('./routes/index') // Index Route 
