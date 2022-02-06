@@ -125,7 +125,7 @@ app.use(express.static('public'))
 
 // Using Routes
 
-app.use('/index', indexRouter) // Index Route
+app.use('/', indexRouter) // Index Route
 app.use('/blog', blogRouter) // Blog Route
 app.use('/auth', authRouter) // Login Route
 app.use('/admin', adminRoute) // Blog & Messages Admin Route
