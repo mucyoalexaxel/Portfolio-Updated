@@ -9,6 +9,8 @@ if (process.env.NODE_ENV !== 'production'){
 
 const mongoose = require('mongoose')
 const express = require('express')
+const morgan = require('morgan')
+const createError = require('http-errors')
 const expressLayouts = require('express-ejs-layouts')
 const swaggerUI = require('swagger-ui-express')
 const swaggerJsDoc = require('swagger-jsdoc')
@@ -18,7 +20,8 @@ const swaggerJsDoc = require('swagger-jsdoc')
 
 const blogRouter = require('./routes/blog') // Login Route
 const indexRouter = require('./routes/index') // Index Route 
-const loginRouter = require('./routes/login') // Login Route
+const authRouter = require('./routes/auth') // Login Route
+const adminRoute = require('./routes/admin') // Messages & Blog Admin Route
 
 // API Swager Documentation
 
@@ -41,9 +44,50 @@ const options = {
 
 const apiSpecs = swaggerJsDoc(options)
 
-// Setting Up Engines 
+
 
 const app = express()
+app.use(morgan('dev'))
+app.use(express.json()) /* You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request */
+app.use(express.urlencoded({extended: true}))
+
+// MongoDB Atlas Connection
+
+const URI = process.env.DATABASE_URI;
+const URL = process.env.DATABASE_URL;
+
+const connectDB = async () => {
+    // API Mongo Atlas DB
+    try{
+        await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
+
+        // Connecting & Listening to The Database
+        app.listen(process.env.PORT || 7000)
+        // Db Connection Details
+        const dbPort = JSON.stringify(app.listen(process.env.PORT))
+        // console.log('App Is Listening On Port: ' + dbPort)
+        console.log('MongoDb Atlas Connected')
+    } catch (err){
+        console.error(err)
+    }
+
+    // const db = mongoose.connection
+    // db.on('error', (error) => console.error(error))
+    // db.once('open', () => console.log('Connected to MongoDb Atlas'))
+    // db.on('disconnected', () => console.log('Disconnected From MongoDb Atlas'))
+
+    // Local MongoBD Connection
+    // mongoose.connect(URL,  { useNewUrlParser: true, useUnifiedTopology: true })
+    
+    
+    
+}
+connectDB()
+
+
+
+
+// Setting Up View Engines 
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -54,45 +98,45 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpecs))
 
 // Setting Up Layouts
 
-app.set('layout', 'layouts/layout' , 'layouts/login_page_layout', 'layouts/blog_page_layout') 
+app.set('layout', 'layouts/layout' , 'layouts/login', 'layouts/blog', 'layouts/adminDashboard') 
 
 // Using Layouts
 app.use(expressLayouts)
 app.use(express.static('public'))
 
-app.use(express.json()) /* You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request */
+
+
+// // Not Found Default Route
+// app.use(async (req, res, next) => {
+//     next(createError.NotFound())
+// })
+
+// // Error Handler 
+// app.use((err, res, req, next) => {
+//     res.Status(err.status || 500)
+//     res.send({
+//         error: {
+//             status: err.status || 500, 
+//             message: err.message
+//         }
+//     })
+// })
+
 
 // Using Routes
 
-app.use('/', indexRouter) // Index Route
-app.use('/blog_page_layout', blogRouter) // Blog Route
-app.use('/login_page_layout', loginRouter) // Login Route
+app.use('/index', indexRouter) // Index Route
+app.use('/blog', blogRouter) // Blog Route
+app.use('/auth', authRouter) // Login Route
+app.use('/admin', adminRoute) // Blog & Messages Admin Route
 
 
 
-// MongoDB Atlas Connection
 
-const URI = process.env.DATABASE_URI;
-const URL = process.env.DATABASE_URL;
 
-const connectDB = async () => {
-    // try{
-    //     await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
-    //     const dbPort = JSON.stringify(app.listen(process.env.PORT))
-    //     console.log('App Is Listening On Port: ' + dbPort)
-    //     console.log('Connected To MongoDb Atlas')
-    // } catch (err){
-    //     console.error(err)
-    // }
 
-    mongoose.connect(URL,  { useNewUrlParser: true, useUnifiedTopology: true })
-    const db = mongoose.connection
-    db.on('error', (error) => console.error(error))
-    db.once('open', () => console.log('Connected to Local Mongo Database'))
-}
-connectDB()
 
-// Connecting & Listening to The Database
-app.listen(process.env.PORT || 7000)
+
+
 
 

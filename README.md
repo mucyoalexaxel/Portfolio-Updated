@@ -1,2 +1,2 @@
-# Responsive Resume Website
+# Personal Resume Website
 ### Responsive Resume Website

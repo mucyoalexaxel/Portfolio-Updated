@@ -19,11 +19,15 @@
   },
   "homepage": "https://github.com/mucyoalexaxel/Portfolio-Updated#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "bcrypt": "^5.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "express-ejs-layouts": "^2.5.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.8",
+    "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0"
   },
