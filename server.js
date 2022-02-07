@@ -14,6 +14,7 @@ const createError = require('http-errors')
 const expressLayouts = require('express-ejs-layouts')
 const swaggerUI = require('swagger-ui-express')
 const swaggerJsDoc = require('swagger-jsdoc')
+const cookieParser = require('cookie-parser')
 
 
 // Importing Routes In The Server 
@@ -50,6 +51,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(express.json()) /* You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request */
 app.use(express.urlencoded({extended: true}))
+app.use(cookieParser())
 
 // MongoDB Atlas Connection
 
@@ -113,12 +115,12 @@ app.use(express.static('public'))
 
 // // Error Handler 
 // app.use((err, res, req, next) => {
-//     res.Status(err.status || 500)
+//     res.status(err.status || 500)
 //     res.send({
 //         error: {
 //             status: err.status || 500, 
-//             message: err.message
-//         }
+//             message: err.message,
+//         },
 //     })
 // })
 

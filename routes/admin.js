@@ -1,14 +1,39 @@
 const express = require('express')
 const adminRoute = express.Router()
-const blogArticles = require('../models/blogArticles')
-const messageQuerries = require('../models/messageQueries')
-
+const {verifyAccessToken} = require('../helpers/jwt_helper')
+const adminController = require('../Controllers/adminController')
 
 
 // Blog CRUD Operations Route 
 /**
  * @swagger
  * components:
+ *      securitySchemes:
+ *          bearerAuth:
+ *              type: http
+ *              scheme: bearer
+ *              bearerFormat: JWT
+ *      responses: 
+ *          UnauthorizedError:
+ *              description: User does not have access to perform the action
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                         type: object
+ *                         properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: 'Unauthorized'
+ *          NotFoundError:
+ *              description: Not Found
+ *              content: 
+ *                  application/json: 
+ *                      schema: 
+ *                          type: object
+ *                          properties: 
+ *                              message: 
+ *                                  type: string 
+ *                                  example: 'Not Found'
  *      schemas:
  *          blogArticles: 
  *              type: object
@@ -30,12 +55,13 @@ const messageQuerries = require('../models/messageQueries')
  *                  dateOfArticle: 
  *                      type: number
  *                      description: Date Article Was Created
+ * 
  */
 
 /**
  * @swagger
  * tags: 
- *      name: Blog Articles API
+ *      name: Blog CRUD Operation
  *      description: Blog Articles CRUD Operations 
  */
 
@@ -43,8 +69,10 @@ const messageQuerries = require('../models/messageQueries')
  * @swagger
  * /admin/blog_articles:
  *      get:
- *          tags: [Blog Articles API]
+ *          tags: [Blog CRUD Operation]
  *          summary: Returns A List Of All Blog Articles
+ *          security:
+ *              - bearerAuth: []  
  *          responses: 
  *              200:
  *                  description: List of All Blog Articles
@@ -56,21 +84,16 @@ const messageQuerries = require('../models/messageQueries')
  *                                  $ref: '#/components/schemas/blogArticles'
  */
 // Getting all Article
-adminRoute.get('/blog_articles', async (req, res) => {
-    try {
-      const articles = await blogArticles.find()
-      res.status(200).json(articles)
-    } catch (err) {
-      res.status(500).json({ message: err.message })
-    }
-  })
+adminRoute.get('/blog_articles', verifyAccessToken, adminController.allArticles)
   
   /**
    * @swagger
    * /admin/blog_articles/{id}:
    *   get:
    *     summary: Get An Article By ID
-   *     tags: [Blog Articles API]
+   *     tags: [Blog CRUD Operation]
+   *     security:
+   *        - bearerAuth: [] 
    *     parameters:
    *       - in: path
    *         name: id
@@ -90,17 +113,16 @@ adminRoute.get('/blog_articles', async (req, res) => {
    */
     
     // Getting One Article
-    adminRoute.get('/blog_articles/:id', getArticle, (req, res) => {
-      res.status(200).json(res.article)
-      // res.json(res.article.title)
-    })
+    adminRoute.get('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.articleById)
   
     /**
    * @swagger
    * /admin/blog_articles:
    *   post:
    *     summary: Create A New Article
-   *     tags: [Blog Articles API]
+   *     tags: [Blog CRUD Operation]
+   *     security:
+   *        - bearerAuth: []
    *     requestBody:
    *       required: true
    *       content:
@@ -119,25 +141,16 @@ adminRoute.get('/blog_articles', async (req, res) => {
    */
     
     // Creating one Article
-    adminRoute.post('/blog_articles', async (req, res) => {
-      const article = new blogArticles({
-        title: req.body.title,
-        articleContent: req.body.articleContent
-      })
-      try {
-        const newArticle = await article.save()
-        res.status(201).json(newArticle)
-      } catch (err) {
-        res.status(400).json({ message: err.message })
-      }
-    })
+    adminRoute.post('/blog_articles', verifyAccessToken, adminController.createArticle)
     
     /**
    * @swagger
    * /admin/blog_articles/{id}:
    *  patch:
    *    summary: Update Article By Id
-   *    tags: [Blog Articles API]
+   *    tags: [Blog CRUD Operation]
+   *    security:
+   *        - bearerAuth: []
    *    parameters:
    *      - in: path
    *        name: id
@@ -164,20 +177,7 @@ adminRoute.get('/blog_articles', async (req, res) => {
    *        description: Internal Server Error
    */
     // Updating One Article
-    adminRoute.patch('/blog_articles/:id', getArticle, async (req, res) => {
-      if (req.body.title != null) {
-        res.article.title = req.body.title
-      }
-      if (req.body.articleContent != null) {
-        res.article.articleContent = req.body.articleContent
-      }
-      try {
-        const updatedArticle = await res.article.save()
-        res.status(204).json(updatedArticle)
-      } catch (err) {
-        res.status(400).json({ message: err.message })
-      }
-    })
+    adminRoute.patch('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.updateArticle)
     
   
     /**
@@ -185,7 +185,9 @@ adminRoute.get('/blog_articles', async (req, res) => {
    * /admin/blog_articles/{id}:
    *   delete:
    *     summary: Deleting An Article By Id
-   *     tags: [Blog Articles API]
+   *     tags: [Blog CRUD Operation]
+   *     security:
+   *        - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -201,35 +203,40 @@ adminRoute.get('/blog_articles', async (req, res) => {
    *         description: Article Not Found
    */
     // Deleting One Article
-    adminRoute.delete('/blog_articles/:id', getArticle, async (req, res) => {
-      try {
-        await res.article.remove()
-        res.status(200).json({ message: 'Article Deleted Successfully' })
-      } catch (err) {
-        res.status(500).json({ message: err.message })
-      }
-    })
+    adminRoute.delete('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.deleteArticle)
     
-    async function getArticle(req, res, next) {
-      let article
-      try {
-        article = await blogArticles.findById(req.params.id)
-        if (article == null) {
-          return res.status(404).json({ message: 'Cannot Find Article' })
-        }
-      } catch (err) {
-        return res.status(500).json({ message: err.message })
-      }
-    
-      res.article = article
-      next()
-    }
 
     // Message Querries CRUD Operations Route
 
 /**
  * @swagger
  * components:
+ *      securitySchemes:
+ *          bearerAuth:
+ *              type: http
+ *              scheme: bearer
+ *              bearerFormat: JWT
+ *      responses: 
+ *          UnauthorizedError:
+ *              description: User does not have access to perform the action
+ *              content: 
+ *                  application/json:
+ *                      schema:
+ *                         type: object
+ *                         properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: 'Unauthorized'
+ *          NotFoundError:
+ *              description: Not Found
+ *              content: 
+ *                  application/json: 
+ *                      schema: 
+ *                          type: object
+ *                          properties: 
+ *                              message: 
+ *                                  type: string 
+ *                                  example: 'Not Found'
  *      schemas:
  *          messageQuerries: 
  *              type: object
@@ -264,7 +271,7 @@ adminRoute.get('/blog_articles', async (req, res) => {
 /**
  * @swagger
  * tags: 
- *      name: Message Querries API
+ *      name: Message Querries CRUD Operation
  *      description: CRUD Operations Message Querries
  */
 
@@ -272,8 +279,10 @@ adminRoute.get('/blog_articles', async (req, res) => {
  * @swagger
  * /admin/messages:
  *      get:
- *          tags: [Message Querries API]
+ *          tags: [Message Querries CRUD Operation]
  *          summary: Returns A List Of All Message Querries
+ *          security:
+ *              - bearerAuth: []
  *          responses: 
  *              200:
  *                  description: List of All Message Querries
@@ -286,14 +295,7 @@ adminRoute.get('/blog_articles', async (req, res) => {
  */
 
 // Getting all Message
-adminRoute.get('/messages', async (req, res) => {
-    try {
-      const messages = await messageQuerries.find()
-      res.status(200).json(messages)
-    } catch (err) {
-      res.status(500).json({ message: err.message })
-    }
-  })
+adminRoute.get('/messages', verifyAccessToken, adminController.allMessages)
 
 
 /**
@@ -301,7 +303,9 @@ adminRoute.get('/messages', async (req, res) => {
  * /admin/messages/{id}:
  *   get:
  *     summary: Get A Message Querry By ID
- *     tags: [Message Querries API]
+ *     tags: [Message Querries CRUD Operation]
+ *     security:
+ *          - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -322,17 +326,16 @@ adminRoute.get('/messages', async (req, res) => {
 
 
 // Getting One Message
-adminRoute.get('/messages/:id', getMessage, (req, res) => {
-    res.status(200).json(res.message)
-    // res.json(res.message.title)
-  })
+adminRoute.get('/messages/:id', verifyAccessToken, adminController.getMessage, adminController.messageById)
 
  /**
  * @swagger
  * /admin/messages:
  *   post:
  *     summary: Create A New Message Querry
- *     tags: [Message Querries API]
+ *     tags: [Message Querries CRUD Operation]
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -351,27 +354,16 @@ adminRoute.get('/messages/:id', getMessage, (req, res) => {
  */
 
   // Creating one Message
-adminRoute.post('/messages', async (req, res) => {
-    const message = new messageQuerries({
-        fullNames: req.body.fullNames,
-        email: req.body.email,
-        project: req.body.project,
-        message: req.body.message
-    })
-    try {
-      const newMessage = await message.save()
-      res.status(201).json(newMessage)
-    } catch (err) {
-      res.status(400).json({ message: err.message })
-    }
-  })
+adminRoute.post('/messages', verifyAccessToken, adminController.createMessage)
 
 /**
  * @swagger
  * /admin/messages/{id}:
  *   delete:
  *     summary: Deleting Message Querry By Id
- *     tags: [Message Querries API]
+ *     tags: [Message Querries CRUD Operation]
+ *     security:
+ *          - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -390,29 +382,8 @@ adminRoute.post('/messages', async (req, res) => {
  */
 
   // Deleting One Message
-adminRoute.delete('/messages/:id', getMessage, async (req, res) => {
-    try {
-      await res.message.remove()
-      res.status(200).json({ message: 'Message Deleted Successfully' })
-    } catch (err) {
-      res.status(500).json({ message: err.message })
-    }
-  })
+adminRoute.delete('/messages/:id', verifyAccessToken, adminController.getMessage, adminController.deleteMessage)
   
-  async function getMessage(req, res, next) {
-    let message
-    try {
-        message = await messageQuerries.findById(req.params.id)
-      if (message == null) {
-        return res.status(404).json({ message: 'Cannot Find Message' })
-      }
-    } catch (err) {
-      return res.status(500).json({ message: err.message })
-    }
-  
-    res.message = message
-    next()
-  }
 
 
 // Exporting Routes 

@@ -2,6 +2,6 @@
 node_modules
 
 blog.rest
-login.rest
+admin.rest
 messageQuerry.rest
 auth.rest
