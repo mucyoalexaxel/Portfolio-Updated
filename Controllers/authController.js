@@ -46,7 +46,6 @@ module.exports = {
   
     refreshToken: async (req, res, next) => {
         try {
-
             const refreshToken = req.cookies.refreshToken
             if (!refreshToken) throw createError.BadRequest()
             const userId = await verifyRefreshToken(refreshToken)
