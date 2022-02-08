@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const messageQuerries = require('../models/messageQueries')
 
 // Creating Routes 
 

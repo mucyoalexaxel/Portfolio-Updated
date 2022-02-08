@@ -10,7 +10,6 @@ module.exports = {
             const userDetails = await authSchema.validateAsync(req.body)
             const doesExist = await dbUser.findOne({email: userDetails.email})
             if (doesExist) throw createError.Conflict(`${userDetails.email} Email Has Already Been Registered`)
-    
             const newUser = new dbUser(userDetails)
             const savedUser = await newUser.save()
             const accessToken = await signAccessToken(savedUser.id)
