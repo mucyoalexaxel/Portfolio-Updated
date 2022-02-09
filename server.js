@@ -1,10 +1,7 @@
 // Loading MongoDb Database In The Server from our .env file
-if (process.env.NODE_ENV !== 'production'){
-    require('dotenv').config()
-}
+require('dotenv-flow').config();
 
 
-// require('dotenv').config()
 // Importing Libaries 
 
 const mongoose = require('mongoose')
@@ -36,7 +33,7 @@ const options = {
         },
         servers: [
             {
-                url:"http://localhost:7000"
+                url:"http://localhost:8000"
             }
         ],
     },
@@ -64,7 +61,7 @@ const connectDB = async () => {
         await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
 
         // Connecting & Listening to The Database
-        app.listen(process.env.PORT || 7000)
+        app.listen(process.env.PORT || 8000)
         // Db Connection Details
         const dbPort = JSON.stringify(app.listen(process.env.PORT))
         // console.log('App Is Listening On Port: ' + dbPort)
@@ -133,12 +130,7 @@ app.use('/auth', authRouter) // Login Route
 app.use('/admin', adminRoute) // Blog & Messages Admin Route
 
 
-
-
-
-
-
-
+module.exports = app
 
 
 

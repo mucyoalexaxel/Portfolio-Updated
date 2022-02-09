@@ -1,7 +1,11 @@
-.env
 node_modules
+.env
+.env.test
+.env.development 
 
 blog.rest
 admin.rest
 messageQuerry.rest
 auth.rest
+
+.nyc_output
