@@ -31,11 +31,7 @@ const options = {
             version: "1.0.0",
             description: "This API Will Manage:\n 1. CRUD Operations For The Blog & Message Querries.\n 2. User Roles, User Authentication & Authorisation"
         },
-        servers: [
-            {
-                url:"http://localhost:8000"
-            }
-        ],
+        servers:[{url: 'http://localhost:8000'},{url: 'https://alexaxel-resume.herokuapp.com'}]
     },
     apis: ['./routes/*.js'],
 }
