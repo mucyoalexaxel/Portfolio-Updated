@@ -61,7 +61,7 @@ const connectDB = async () => {
         await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
 
         // Connecting & Listening to The Database
-        app.listen(process.env.PORT || 8000)
+        app.listen(process.env.PORT || '8000')
         // Db Connection Details
         const dbPort = JSON.stringify(app.listen(process.env.PORT))
         // console.log('App Is Listening On Port: ' + dbPort)
