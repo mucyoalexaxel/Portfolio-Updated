@@ -63,7 +63,7 @@ const connectDB = async () => {
         // Connecting & Listening to The Database
         app.listen(process.env.PORT || '8000')
         // Db Connection Details
-        const dbPort = JSON.stringify(app.listen(process.env.PORT))
+        // const dbPort = JSON.stringify(app.listen(process.env.PORT))
         // console.log('App Is Listening On Port: ' + dbPort)
         console.log('MongoDb Atlas Connected')
     } catch (err){
