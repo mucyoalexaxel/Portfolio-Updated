@@ -48,32 +48,20 @@ app.use(cookieParser())
 
 // MongoDB Atlas Connection
 
-const URI = process.env.DATABASE_URI;
-const URL = process.env.DATABASE_URL;
-
 const connectDB = async () => {
     // API Mongo Atlas DB
     try{
-        await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
+        await mongoose.connect(process.env.DATABASE_URI , { useNewUrlParser: true, useUnifiedTopology: true })
 
         // Connecting & Listening to The Database
-        app.listen(process.env.PORT || '8000')
+
+        app.listen(process.env.PORT || 8000)
         console.log('MongoDb Atlas Connected')
         console.log('Listening On Port: ' + process.env.PORT)
     } catch (err){
         console.error(err)
     }
 
-    // const db = mongoose.connection
-    // db.on('error', (error) => console.error(error))
-    // db.once('open', () => console.log('Connected to MongoDb Atlas'))
-    // db.on('disconnected', () => console.log('Disconnected From MongoDb Atlas'))
-
-    // Local MongoBD Connection
-    // mongoose.connect(URL,  { useNewUrlParser: true, useUnifiedTopology: true })
-    
-    
-    
 }
 connectDB()
 
