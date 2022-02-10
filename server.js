@@ -31,11 +31,7 @@ const options = {
             version: "1.0.0",
             description: "This API Will Manage:\n 1. CRUD Operations For The Blog & Message Querries.\n 2. User Roles, User Authentication & Authorisation"
         },
-        servers: [
-            {
-                url:"http://localhost:8000"
-            }
-        ],
+        servers:[{url: 'http://localhost:8000'},{url: 'https://alexaxel-resume.herokuapp.com'}]
     },
     apis: ['./routes/*.js'],
 }
@@ -52,34 +48,20 @@ app.use(cookieParser())
 
 // MongoDB Atlas Connection
 
-const URI = process.env.DATABASE_URI;
-const URL = process.env.DATABASE_URL;
-
 const connectDB = async () => {
     // API Mongo Atlas DB
     try{
-        await mongoose.connect(URI , { useNewUrlParser: true, useUnifiedTopology: true })
+        await mongoose.connect(process.env.DATABASE_URI , { useNewUrlParser: true, useUnifiedTopology: true })
 
         // Connecting & Listening to The Database
-        app.listen(process.env.PORT || '8000')
-        // Db Connection Details
-        // const dbPort = JSON.stringify(app.listen(process.env.PORT))
-        // console.log('App Is Listening On Port: ' + dbPort)
+
+        app.listen(process.env.PORT || 8000)
         console.log('MongoDb Atlas Connected')
+        console.log('Listening On Port: ' + process.env.PORT)
     } catch (err){
         console.error(err)
     }
 
-    // const db = mongoose.connection
-    // db.on('error', (error) => console.error(error))
-    // db.once('open', () => console.log('Connected to MongoDb Atlas'))
-    // db.on('disconnected', () => console.log('Disconnected From MongoDb Atlas'))
-
-    // Local MongoBD Connection
-    // mongoose.connect(URL,  { useNewUrlParser: true, useUnifiedTopology: true })
-    
-    
-    
 }
 connectDB()
 
@@ -128,7 +110,6 @@ app.use('/', indexRouter) // Index Route
 app.use('/blog', blogRouter) // Blog Route
 app.use('/auth', authRouter) // Login Route
 app.use('/admin', adminRoute) // Blog & Messages Admin Route
-
 
 module.exports = app
 
