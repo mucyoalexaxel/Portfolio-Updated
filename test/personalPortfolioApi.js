@@ -1,23 +1,37 @@
-const joi = require('@hapi/joi')
+const request = require('supertest')
 const chai = require('chai')
 const expect = chai.expect
 const should = chai.should()
 const chaiHttp = require('chai-http')
 const server = require('../server')
 chai.use(chaiHttp)
+const agent = request.agent(server)
 
+const dbUsers = require('../models/dbUsers')
+const blogArticles = require('../models/blogArticles')
+const messageQuerries = require('../models/messageQueries')
 
-//Sample Test 
 /**
- * describe('Sample Test' , () => {
-    it('Should Test Two Values', () => {
-        const a = 'alex'
-        const b = 'alex axel'
-        expect(a).not.to.be.equal(b)
+* Connecting To The Server Before Testing
+*/
+ before(done => { 
+    server.on('appStarted', () => {
+        done()
     })
 })
- * 
- */
+
+let accessToken;
+let refreshToken;
+
+const findUserId = async () => {
+
+    // return await dbUsers.findOne({_id})
+}
+const userId = findUserId()
+
+const messageId = messageQuerries._id
+const articleId = blogArticles._id
+
 
 
 const testUserReg = { 
@@ -52,8 +66,8 @@ const testBlogUpdate = {
 
 
 
-describe('Personal Portfolio API Test', () => {
-    
+
+describe('Personal Portfolio API Test', () => {        
     /**
      * Test To Create A Message & Save In DataBase
      */
@@ -73,15 +87,18 @@ describe('Personal Portfolio API Test', () => {
      * Test To Register A User & Save In The DataBase
      */
      describe('POST /auth/register', () => {
-        it('It Should Register A New User', (done) => {
+        it('It Should Register A New User In The Database', (done) => {
             chai.request(server)
                 .post('/auth/register')
                 .send(testUserReg)
                 .end((err, res) => {
                     res.should.have.status(201)
                     res.body.should.be.a('object')
+                    accessToken = res.body.accessToken
+                    refreshToken = res.body.refreshToken
                     res.body.should.have.property('accessToken')
                     res.body.should.have.property('refreshToken')
+                    // console.log(userId)
                     done()
                 })
         })
@@ -124,6 +141,7 @@ describe('Personal Portfolio API Test', () => {
         it('It Should Return An Array Of All Message Querries', (done) => {
             chai.request(server)
             .get('/admin/messages')
+            .set({ 'Authorization': `Bearer ${accessToken}` })
             .end((err, res) => {
                 res.should.have.status(200)
                 done()
@@ -163,6 +181,7 @@ describe('Personal Portfolio API Test', () => {
         it('It Should Create A New Blog Article', (done) => {
             chai.request(server)
                 .post('/admin/blog_articles')
+                .set({ "Authorization": `Bearer ${accessToken}` })
                 .send(testBlog)
                 .end((err, res) => {
                     res.should.have.status(201)
@@ -177,6 +196,7 @@ describe('Personal Portfolio API Test', () => {
         it('It Should Return An Array Of All Blog Articles', (done) => {
             chai.request(server)
             .get('/admin/blog_articles')
+            .set({ 'Authorization': `Bearer ${accessToken}` })
             .end((err, res) => {
                 res.should.have.status(200)
                 done()

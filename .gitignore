@@ -9,3 +9,4 @@ messageQuerry.rest
 auth.rest
 
 .nyc_output
+coverage

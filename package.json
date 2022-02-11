@@ -1,12 +1,19 @@
 {
   "name": "portfolio-updated",
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json-summary", "text", "lcov" ],
+    "coverageDirectory": "./coverage/"
+  },
   "version": "1.0.0",
   "description": "Responsive Portfolio Website Using Html, Css and JavaScript, With a beautiful user interface. It contains a Header, Home, About, Skills, Qualification, Services, Portfolio, Project in mind, Testimonial, Contact and Footer.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "devStart": "cross-env NODE_ENV=development nodemon server.js",
-    "test": "cross-env NODE_ENV=test nyc --reporter=text-summary mocha --recursive --exit --timeout 10000"
+    "test": "cross-env NODE_ENV=test nyc --reporter=text-summary mocha --recursive --exit --timeout 20000",
+    "test:coverage": "npm test -- --coverage ",
+    "test:badges": "npm run test:coverage && jest-coverage-badges"
   },
   "repository": {
     "type": "git",
@@ -30,6 +37,7 @@
     "express": "^4.17.2",
     "express-ejs-layouts": "^2.5.1",
     "http-errors": "^2.0.0",
+    "jest-coverage-badges": "^1.1.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
@@ -41,10 +49,13 @@
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "dotenv": "^14.3.2",
+    "jest": "^27.5.1",
+    "jest-html-reporters": "^3.0.5",
     "mocha": "^9.2.0",
     "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "supertest": "^6.2.2"
   },
   "directories": {
     "test": "test"

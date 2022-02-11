@@ -84,8 +84,7 @@ const adminController = require('../Controllers/adminController')
  *                                  $ref: '#/components/schemas/blogArticles'
  */
 // Getting all Article
-// adminRoute.get('/blog_articles', verifyAccessToken, adminController.allArticles)
-adminRoute.get('/blog_articles', adminController.allArticles)
+adminRoute.get('/blog_articles', verifyAccessToken, adminController.allArticles)
   
   /**
    * @swagger
@@ -115,8 +114,7 @@ adminRoute.get('/blog_articles', adminController.allArticles)
     
     // Getting One Article
     adminRoute.get('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.articleById)
-    // adminRoute.get('/blog_articles/:id', adminController.getArticle, adminController.articleById)
-  
+
     /**
    * @swagger
    * /admin/blog_articles:
@@ -144,8 +142,7 @@ adminRoute.get('/blog_articles', adminController.allArticles)
     
     // Creating one Article
     adminRoute.post('/blog_articles', verifyAccessToken, adminController.createArticle)
-    // adminRoute.post('/blog_articles', adminController.createArticle)
-    
+
     /**
    * @swagger
    * /admin/blog_articles/{id}:
@@ -180,9 +177,7 @@ adminRoute.get('/blog_articles', adminController.allArticles)
    *        description: Internal Server Error
    */
     // Updating One Article
-    adminRoute.patch('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.updateArticle)
-    // adminRoute.patch('/blog_articles/:id', adminController.getArticle, adminController.updateArticle)
-    
+    adminRoute.patch('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.updateArticle)    
   
     /**
    * @swagger
@@ -207,9 +202,7 @@ adminRoute.get('/blog_articles', adminController.allArticles)
    *         description: Article Not Found
    */
     // Deleting One Article
-    adminRoute.delete('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.deleteArticle)
-    // adminRoute.delete('/blog_articles/:id', adminController.getArticle, adminController.deleteArticle)
-    
+    adminRoute.delete('/blog_articles/:id', verifyAccessToken, adminController.getArticle, adminController.deleteArticle)    
 
     // Message Querries CRUD Operations Route
 
@@ -301,8 +294,6 @@ adminRoute.get('/blog_articles', adminController.allArticles)
 
 // Getting all Message
 adminRoute.get('/messages', verifyAccessToken, adminController.allMessages)
-// adminRoute.get('/messages', adminController.allMessages)
-
 
 /**
  * @swagger
@@ -333,7 +324,6 @@ adminRoute.get('/messages', verifyAccessToken, adminController.allMessages)
 
 // Getting One Message
 adminRoute.get('/messages/:id', verifyAccessToken, adminController.getMessage, adminController.messageById)
-// adminRoute.get('/messages/:id', adminController.getMessage, adminController.messageById)
 
  /**
  * @swagger
@@ -359,8 +349,8 @@ adminRoute.get('/messages/:id', verifyAccessToken, adminController.getMessage, a
  */
 
   // Creating one Message
-adminRoute.post('/messages', verifyAccessToken, adminController.createMessage)
-// adminRoute.post('/messages', adminController.createMessage)
+adminRoute.post('/messages', adminController.createMessage)
+
 
 /**
  * @swagger
@@ -388,9 +378,7 @@ adminRoute.post('/messages', verifyAccessToken, adminController.createMessage)
  */
 
   // Deleting One Message
-adminRoute.delete('/messages/:id', verifyAccessToken, adminController.getMessage, adminController.deleteMessage)
-// adminRoute.delete('/messages/:id', adminController.getMessage, adminController.deleteMessage)
-  
+adminRoute.delete('/messages/:id', verifyAccessToken, adminController.getMessage, adminController.deleteMessage)  
 
 
 // Exporting Routes 
