@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "devStart": "cross-env NODE_ENV=development nodemon server.js",
-    "test": "cross-env NODE_ENV=test mocha --recursive --exit",
+    "test": "cross-env NODE_ENV=test nyc mocha --recursive --exit",
     "cover": "cross-env NODE_ENV=test nyc mocha --recursive --exit",
     "make-badges": "cross-env NODE_ENV=test istanbul-badges-readme",
     "make-badges-silent": "istanbul-badges-readme --silent",
@@ -16,7 +16,7 @@
     "extension": [
       ".js"
     ],
-    "reporter": [ "json-summary" ]
+    "reporter": [ "json-summary", "text-summary" ]
   },
   "repository": {
     "type": "git",

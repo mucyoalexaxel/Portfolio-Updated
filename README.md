@@ -1,8 +1,7 @@
 # Personal Resume Website
 ### Responsive Resume Website
 ### API Quality Testing Coverage Results
-![Statements](https://img.shields.io/badge/statements-68.31%25-red.svg?style=flat)
-![Branches](https://img.shields.io/badge/branches-32.35%25-red.svg?style=flat)
-![Functions](https://img.shields.io/badge/functions-54.54%25-red.svg?style=flat)
-![Lines](https://img.shields.io/badge/lines-70.21%25-red.svg?style=flat)
+| Statements | Branches | Functions | Lines |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| ![Statements](https://img.shields.io/badge/statements-91.93%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-70.58%25-red.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-90.9%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-92.91%25-brightgreen.svg?style=flat) |
 

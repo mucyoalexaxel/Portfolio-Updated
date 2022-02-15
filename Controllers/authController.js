@@ -12,9 +12,10 @@ module.exports = {
             if (doesExist) throw createError.Conflict(`${userDetails.email} Email Has Already Been Registered`)
             const newUser = new dbUser(userDetails)
             const savedUser = await newUser.save()
+            const newUserId = savedUser.id
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
-            res.status(201).send({accessToken, refreshToken})
+            res.status(201).send({accessToken, refreshToken, newUserId})
     
         } catch (error) {
             if (error.isJoi === true ) error.status = 422
@@ -48,12 +49,12 @@ module.exports = {
             const refreshToken = req.cookies.refreshToken
             if (!refreshToken) throw createError.BadRequest()
             const userId = await verifyRefreshToken(refreshToken)
-            console.log(refreshToken)
             const accessToken = await signAccessToken(userId) 
             const refToken = await signRefreshToken(userId) 
             res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
             res.cookie('refreshToken', refToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
             res.status(201).send('Logged In Successfully')
+            res.send({accessToken, refToken})
     
         } catch (error) {
             next(error)
@@ -63,7 +64,8 @@ module.exports = {
     logout: async (req, res, next) => {
         try {
             res.cookie('refreshToken', '', {maxAge: 1}) 
-            res.cookie('accessToken', '', {maxAge: 1}) 
+            res.cookie('accessToken', '', {maxAge: 1})
+            res.status(201).json({message: 'Logged Out Successfully'}) 
         } catch (error) {
             next(error)
         }

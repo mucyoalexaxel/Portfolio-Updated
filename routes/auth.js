@@ -1,6 +1,8 @@
 const express = require('express')
 const authRouter = express.Router()
 const authController = require('../Controllers/authController')
+const {verifyAccessToken} = require('../helpers/jwt_helper')
+
 
 // Creating Login Route
 
@@ -123,7 +125,7 @@ authRouter.post('/login', authController.login)
    *         description: Server Error
    */
 // Refresh-token
-authRouter.post('/refresh_token', authController.refreshToken)
+authRouter.post('/refresh_token', verifyAccessToken, authController.refreshToken)
 
 /**
    * @swagger
@@ -142,7 +144,7 @@ authRouter.post('/refresh_token', authController.refreshToken)
    *         description: Server Error
    */
 // Logout Route
-authRouter.delete('/logout', authController.logout)
+authRouter.delete('/logout', verifyAccessToken, authController.logout)
 
 
 // Exporting login.js Route

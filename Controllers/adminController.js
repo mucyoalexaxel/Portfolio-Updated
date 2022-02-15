@@ -51,7 +51,8 @@ module.exports = {
         })
         try {
           const newArticle = await article.save()
-          res.status(201).json(newArticle)
+          const savedArticleId = newArticle.id
+          res.status(201).json({newArticle, savedArticleId})
         } catch (err) {
           res.status(400).json({ message: err.message })
         }
@@ -100,7 +101,8 @@ module.exports = {
         })
         try {
           const newMessage = await message.save()
-          res.status(201).json(newMessage)
+          const savedMessageId = newMessage.id
+          res.status(201).json({newMessage, savedMessageId})
         } catch (err) {
           res.status(400).json({ message: err.message })
         }
