@@ -16,7 +16,10 @@
     "extension": [
       ".js"
     ],
-    "reporter": [ "json-summary", "text-summary" ]
+    "reporter": [
+      "json-summary",
+      "text-summary"
+    ]
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv-flow": "^3.2.0",
     "ejs": "^3.1.6",

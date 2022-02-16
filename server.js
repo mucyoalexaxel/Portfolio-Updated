@@ -12,6 +12,7 @@ const expressLayouts = require('express-ejs-layouts')
 const swaggerUI = require('swagger-ui-express')
 const swaggerJsDoc = require('swagger-jsdoc')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 
 // Importing Routes In The Server 
@@ -41,6 +42,9 @@ const apiSpecs = swaggerJsDoc(options)
 
 
 const app = express()
+app.use(cors({
+    origin: '*'
+}))
 app.use(morgan('dev'))
 app.use(express.json()) /* You NEED express.json() and express.urlencoded() for POST and PUT requests, because in both these requests you are sending data (in the form of some data object) to the server and you are asking the server to accept or store that data (object), which is enclosed in the body (i.e. req.body) of that (POST or PUT) Request */
 app.use(express.urlencoded({extended: true}))
