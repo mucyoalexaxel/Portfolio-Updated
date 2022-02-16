@@ -15,6 +15,7 @@ module.exports = {
             const newUserId = savedUser.id
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
+            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
             res.status(201).send({accessToken, refreshToken, newUserId})
     
         } catch (error) {
@@ -34,8 +35,8 @@ module.exports = {
             if (!isMatch) throw createError.Unauthorized('Invalid Username Or Password')
             const accessToken = await signAccessToken(user.id)
             const refreshToken = await signRefreshToken(user.id)
-            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-            res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
+            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
+            // res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
             res.status(201).send('Logged In Successfully')
         } catch (error) {
             if (error.isJoi === true) return next(createError.BadRequest('Invalid Email Or Password'))
@@ -51,8 +52,8 @@ module.exports = {
             const userId = await verifyRefreshToken(refreshToken)
             const accessToken = await signAccessToken(userId) 
             const refToken = await signRefreshToken(userId) 
-            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-            res.cookie('refreshToken', refToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
+            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
+            // res.cookie('refreshToken', refToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
             res.status(201).send('Logged In Successfully')
             res.send({accessToken, refToken})
     
@@ -63,7 +64,7 @@ module.exports = {
   
     logout: async (req, res, next) => {
         try {
-            res.cookie('refreshToken', '', {maxAge: 1}) 
+            // res.cookie('refreshToken', '', {maxAge: 1}) 
             res.cookie('accessToken', '', {maxAge: 1})
             res.status(201).json({message: 'Logged Out Successfully'}) 
         } catch (error) {
