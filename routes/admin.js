@@ -70,9 +70,7 @@ const adminController = require('../Controllers/adminController')
  * /admin/blog_articles:
  *      get:
  *          tags: [Blog CRUD Operation]
- *          summary: Returns A List Of All Blog Articles
- *          security:
- *              - bearerAuth: []  
+ *          summary: Returns A List Of All Blog Articles 
  *          responses: 
  *              200:
  *                  description: List of All Blog Articles
@@ -84,7 +82,7 @@ const adminController = require('../Controllers/adminController')
  *                                  $ref: '#/components/schemas/blogArticles'
  */
 // Getting all Article
-adminRoute.get('/blog_articles', verifyAccessToken, adminController.allArticles)
+adminRoute.get('/blog_articles', adminController.allArticles)
   
   /**
    * @swagger
