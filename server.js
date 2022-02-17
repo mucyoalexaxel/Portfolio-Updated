@@ -43,7 +43,7 @@ const apiSpecs = swaggerJsDoc(options)
 
 const app = express()
 app.use(cors({
-    origin: 'origin',
+    origin: 'null',
     methods: '*'
 }))
 app.use(morgan('dev'))
