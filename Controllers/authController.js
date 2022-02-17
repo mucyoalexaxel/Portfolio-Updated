@@ -15,7 +15,7 @@ module.exports = {
             const newUserId = savedUser.id
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
-            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
+            res.cookie('accessToken', accessToken, { maxAge: 1000 * 60 * 60 * 3, path: '/', sameSite: 'Lax'})
             res.status(201).send({accessToken, refreshToken, newUserId})
     
         } catch (error) {
@@ -52,7 +52,7 @@ module.exports = {
             const userId = await verifyRefreshToken(refreshToken)
             const accessToken = await signAccessToken(userId) 
             const refToken = await signRefreshToken(userId) 
-            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
+            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3, path: '/', sameSite: 'Lax'})
             // res.cookie('refreshToken', refToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
             res.status(201).send('Logged In Successfully')
             res.send({accessToken, refToken})
