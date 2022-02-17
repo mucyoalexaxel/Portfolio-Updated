@@ -26,8 +26,7 @@ authRouter.get('/', (req, res) => {
  *                  - fName
  *                  - lName
  *                  - email
- *                  - password                  
- *                  - repeat_password                  
+ *                  - password                                 
  *              properties: 
  *                  id: 
  *                      type: string
@@ -44,9 +43,6 @@ authRouter.get('/', (req, res) => {
  *                  password: 
  *                      type: string
  *                      description: User Password
- *                  repeat_password: 
- *                      type: string
- *                      description: User Password Confirmation
  * 
  */
 

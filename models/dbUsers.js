@@ -19,10 +19,6 @@ const dbUsers = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    repeat_password: {
-        type: String,
-        required: true
     }
 })
 
@@ -31,7 +27,6 @@ dbUsers.pre('save', async function (next) {
         const passSalt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(this.password, passSalt)
         this.password = hashedPassword
-        this.repeat_password = hashedPassword
         next()
     } catch (err) {
         next(err)

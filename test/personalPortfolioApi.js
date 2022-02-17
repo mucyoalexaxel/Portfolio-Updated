@@ -31,16 +31,14 @@ const testUserReg = {
     fName: 'Test',
     lName: 'User',
     email: 'testuser@test.com',
-    password:'testuser12',
-    repeat_password: 'testuser12'
+    password:'testuser12'
 }
 
 const invalidTestUserReg = { 
     fName: 'Test',
     lName: 'User',
     email: 'testuser',
-    password:'testuser12',
-    repeat_password: 'testuser12'
+    password:'testuser12'
 }
 
 const testUserLogin = {
