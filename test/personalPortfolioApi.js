@@ -190,10 +190,9 @@ describe('Personal Portfolio API Test', () => {
                 .post('/auth/login')
                 .send(testUserLogin)
                 .end(async (err, res) => {
-                    res.should.have.status(400)
+                    res.should.have.status(200)
                     res.body.should.be.a('object')
                     res.body.should.have.property('accessToken')
-                    res.body.should.have.property('refreshToken')
                 })
                 done()
             })
