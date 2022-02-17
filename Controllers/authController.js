@@ -16,7 +16,7 @@ module.exports = {
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
             res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
-            res.status(201).send({accessToken, newUserId, refreshToken})
+            res.status(201).send({accessToken, refreshToken, newUserId})
     
         } catch (error) {
             if (error.isJoi === true ) error.status = 422
