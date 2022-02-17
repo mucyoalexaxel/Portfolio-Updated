@@ -16,7 +16,7 @@ module.exports = {
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
             res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
-            res.status(201).send({accessToken, newUserId})
+            res.status(201).send({accessToken, newUserId, refreshToken})
     
         } catch (error) {
             if (error.isJoi === true ) error.status = 422
@@ -37,7 +37,7 @@ module.exports = {
             const refreshToken = await signRefreshToken(user.id)
             res.cookie('accessToken', accessToken, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 3})
             // res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
-            res.status(200).send({accessToken})
+            res.status(200).send({accessToken, refreshToken})
         } catch (error) {
             if (error.isJoi === true) return next(createError.BadRequest('Invalid Email Or Password'))
             next(error)
