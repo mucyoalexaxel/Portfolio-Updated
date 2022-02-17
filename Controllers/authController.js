@@ -35,7 +35,7 @@ module.exports = {
             if (!isMatch) throw createError.Unauthorized('Invalid Username Or Password')
             const accessToken = await signAccessToken(user.id)
             const refreshToken = await signRefreshToken(user.id)
-            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 3})
+            res.cookie('accessToken', accessToken, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 3})
             // res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 365 })
             res.status(200).send({accessToken})
         } catch (error) {
