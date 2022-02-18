@@ -33,8 +33,8 @@ module.exports = {
             req.payload = payload 
             next()
         })
-        } else if (req.headers['authorization']) {
-            const authHeader = req.headers['authorization']
+        } else if (req.headers['Authorization']) {
+            const authHeader = req.headers['Authorization']
             const bearerToken = authHeader.split(' ')
             const token = bearerToken[1]
             JWT.verify(token , process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
