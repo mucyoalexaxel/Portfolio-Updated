@@ -118,7 +118,7 @@ app.use(express.static('public'))
 app.use('/', indexRouter) // Index Route
 app.use('/blog', blogRouter) // Blog Route
 app.use('/auth', authRouter) // Login Route
-app.use('/admin', adminRoute) // Blog & Messages Admin Route
+app.use('/admin', cors(corsOptions) , adminRoute) // Blog & Messages Admin Route
 
 module.exports = app
 
