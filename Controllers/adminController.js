@@ -66,7 +66,7 @@ module.exports = {
         }
         try {
           const updatedArticle = await res.article.save()
-          res.status(204).json(updatedArticle)
+          res.status(204).json({updatedArticle})
         } catch (err) {
           res.status(400).json({ message: err.message })
         }
