@@ -38,7 +38,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [mucyoalexaxel/Portfolio-Updated](https://github.com/mucyoalexaxel/Portfolio-Updated)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|26<br/>Tools used|11/27/23 <br/>Report generated|
+|26<br/>Tools used|01/05/24 <br/>Report generated|
 |------|------|
 </div>
 
